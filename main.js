@@ -64,9 +64,10 @@ function prodTick(number){
 		}
 		
 
-function timeWarp() {
+function timeWarp() {  //spell 1
 	if(mana >= 200) {
 		prodTick(30);
+		mana = mana - 200;
 	}
 }
 window.setInterval(function tick(number){
