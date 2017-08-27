@@ -13,17 +13,17 @@ var innCostMulti = 1.15;
 var innBaseProd = 5;
 var innProdMulti = 1;
 
-function goldClick(number){
+function goldClick(number){  //Base function
 	gold = gold+number;
-	document.getElementById("gold").innerHTML = gold;
+	document.getElementById("gold").innerHTML = gold; 
 	};
 
-function manaGain(number) {
-	if(mana+manaRegen >= maxMana){
+function manaGain(number) {		//Does the mana stuff
+	if(mana+number >= maxMana){
 		mana = maxMana;
 	}
 	else{
-		mana = mana + manaRegen;
+		mana = mana + number;
 	}
 	document.getElementById("currentMana").innerHTML = mana;
 }	
@@ -52,13 +52,26 @@ function buyInn(){
     document.getElementById('innCost').innerHTML = nextCost;  //updates the farm cost for the user
 };
 
-window.setInterval(function tick(){
-	var farmProd = farms*farmBaseProd*farmProdMulti;			//building production and the like
-	document.getElementById('farmProd').innerHTML = farmProd;
-	goldClick(farmProd);
-	var innProd = inns*innBaseProd*innProdMulti;
-	document.getElementById('innProd').innerHTML = innProd;
-	goldClick(innProd);
+function prodTick(number){
+		for (i = 0; i < number; i++){
+			var farmProd = farms*farmBaseProd*farmProdMulti;			//building production and the like
+			document.getElementById('farmProd').innerHTML = farmProd;
+			goldClick(farmProd);
+			var innProd = inns*innBaseProd*innProdMulti;
+			document.getElementById('innProd').innerHTML = innProd;
+			goldClick(innProd);
+			}
+		}
+		
+
+function timeWarp() {
+	if(mana >= 200) {
+		prodTick(30);
+	}
+}
+window.setInterval(function tick(number){
+	
+	prodTick(1);
 	
 	document.getElementById("maxMana").innerHTML = maxMana; //mana stuff
 	manaGain(manaRegen);
