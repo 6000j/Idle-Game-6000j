@@ -8,23 +8,25 @@
 <body>
 <button onClick="goldClick(1)"> Pls Click </button>
 <br />
-<article class="building">
-<button onClick="buyFarm()"> Farm </button>
-<br />
-Farms: <span id="farms">0</span><br />
-Cost: <span id="farmCost">10</span><br />
-Income: <span id="farmProd"></span>
-</article>
+<div class="BuildList" style="float: right;">
+	<article class="building">
+		<button onClick="buyFarm()"> Farm </button>
+		<br />
+		Farms: <span id="farms">0</span><br />
+		Cost: <span id="farmCost">10</span><br />
+		Income: <span id="farmProd"></span>
+	</article>
+	
+	<br />
 
-<br />
-
-<article class="building">
-<button onClick="buyInn()"> Inn </button>
-<br />
-Inns: <span id="inns">0</span><br />
-Cost: <span id="innCost">100</span><br />
-Income: <span id="innProd"></span>
-</article>
+	<article class="building">
+		<button onClick="buyInn()"> Inn </button>
+		<br />
+		Inns: <span id="inns">0</span><br />
+		Cost: <span id="innCost">100</span><br />
+		Income: <span id="innProd"></span>
+	</article>
+</div>
 Gold: <span id="gold"></span>
 <br />
 Mana: <span id="currentMana"></span> / <span id="maxMana"></span> 
