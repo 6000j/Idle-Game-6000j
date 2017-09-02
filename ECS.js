@@ -47,7 +47,30 @@ Building.Components.Production = function ComponentProduction ( value ){
     return this;
 };
 
+Building.Components.BaseCost = function ComponentBaseCost ( value ){
+    value = value || 10;
+    this.value = value;
+
+    return this;
+};
+
+Building.Components.CostMultiplier = function ComponentCostMultiplier ( value ){
+    value = value || 1.15;
+    this.value = value;
+
+    return this;
+};
+
+Building.Components.Production = function ComponentProduction ( value ){
+    value = value || 1;
+    this.value = value;
+
+    return this;
+};
+
 Building.Components.Production.prototype.name = 'Production:';
 
-var entity = new Building.Entity();
-entity.addComponent( new Building.Components.Production(10) );
+var farm = new Building.Entity();
+farm.addComponent( new Building.Components.Production(1) );
+farm.addComponent( new Building.Components.BaseCost(10) );
+farm.addComponent( new Building.Components.CostMultiplier(1.15) );
