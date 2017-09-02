@@ -50,4 +50,4 @@ Building.Components.Production = function ComponentProduction ( value ){
 Building.Components.Production.prototype.name = 'Production:';
 
 var entity = new Building.Entity();
-entity.addComponent( new Building.Components.Production() );
+entity.addComponent( new Building.Components.Production(10) );
