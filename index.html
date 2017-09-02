@@ -3,7 +3,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="interface.css" />
-<script type="text/javascript" src="main.js"></script>
+
 </head>
 <body>
 <button onClick="goldClick(1)"> Pls Click </button>
@@ -26,6 +26,16 @@
 		Cost: <span id="innCost">100</span><br />
 		Income: <span id="innProd"></span>
 	</article>
+	
+	<br />
+	
+	<article class="building">
+		<button onClick="buyTemple()"> Temple </button>
+		<br />
+		Temples: <span id="temples">0</span><br />
+		Cost: <span id="templeCost">100</span><br />
+		Mana Regen from Temples: <span id="templeRegen"></span>
+	</article>
 </div>
 Gold: <span id="gold"></span>
 <br />
@@ -37,6 +47,7 @@ Mana: <span id="currentMana"></span> / <span id="maxMana"></span>
 
 <button onClick="timeWarp()"> Time Warp </br>
 	200 mana </button>
+<script type="text/javascript" src="main.js"></script>
 </body>
 
 
