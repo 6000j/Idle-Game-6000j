@@ -63,20 +63,9 @@ var BuildingAmount = CES.Component.extend({
 	name: 'amount',
 	init: function() {
 		this.amount = 0;
-	},
-	
-	buy: function buy(name, amt){this.name.canAfford(amt)&&this.name.buy(amt)} {
-		gold -= (
-		i = 1
-		cost_so_far = 0;
-		current_cost = this.Cost;
-		while (i < amt){
-			cost_so_far += current_cost;
-			i ++;
-			current_cost = current_cost * this.costMulti;
-			);
-		this.amount += amt
 	}
+	
+	
 	
 })
 
