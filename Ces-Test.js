@@ -16,6 +16,78 @@ var temples = 0;
 var templeCostMulti = 1.15;
 var templeRegen = 0;
 
+var Name = CES.Component.extend({
+	name: 'name',
+	init: function (x){
+		this.name = x;
+	}
+	
+})
+
+var CostMulti = CES.Component.extend({
+	name: 'costMulti',
+	init: function (x) {
+		this.costMulti = x;
+	}
+})
+
+var Cost = CES.Component.extend({
+	name: 'Cost',
+	init: function (baseCost){
+		this.Cost = this.baseCost = baseCost;
+	},
+	canAfford: function (amt){
+		i = 1
+		cost_so_far = 0;
+		current_cost = this.Cost;
+		while (i < amt){
+			cost_so_far += current_cost;
+			i ++;
+			current_cost = current_cost * this.costMulti;
+			return gold >= cost_so_far;
+		}
+	}
+	
+})
+
+var BaseProduction = CES.Component.extend({
+	name: 'baseProduction',
+	init: function (x) {
+		this.baseProduction = x;
+	}
+})
+
+
+
+var BuildingAmount = CES.Component.extend({
+	name: 'amount',
+	init: function() {
+		this.amount = 0;
+	},
+	
+	buy: function buy(name, amt){this.name.canAfford(amt)&&this.name.buy(amt)} {
+		gold -= (
+		i = 1
+		cost_so_far = 0;
+		current_cost = this.Cost;
+		while (i < amt){
+			cost_so_far += current_cost;
+			i ++;
+			current_cost = current_cost * this.costMulti;
+			);
+		this.amount += amt
+	}
+	
+})
+
+var Farm = new CES.Entity();
+Farm.addComponent(new Cost(10));
+Farm.addComponent(new BaseProduction(1));
+Farm.addComponent(new CostMulti(1.15));
+Farm.addComponent(new BuildingAmount());
+
+
+
 function goldClick(number){  //Base function
 	gold = gold+number;
 	document.getElementById("gold").innerHTML = gold; 
@@ -67,6 +139,8 @@ function buyTemple(){
     document.getElementById('innCost').innerHTML = nextCost;  	
 };
 
+
+
 function prodTick(number){
 		for (i = 0; i < number; i++){
 			var farmProd = farms*farmBaseProd*farmProdMulti;			//building production and the like
@@ -78,7 +152,7 @@ function prodTick(number){
 			}
 		}
 		
-
+//Spells
 function timeWarp() {  //spell 1
 	if(mana >= 200) {
 		prodTick(30);
