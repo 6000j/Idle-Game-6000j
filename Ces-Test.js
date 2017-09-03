@@ -36,17 +36,7 @@ var Cost = CES.Component.extend({
 	init: function (baseCost){
 		this.Cost = this.baseCost = baseCost;
 	},
-	canAfford: function (amt){
-		i = 1
-		cost_so_far = 0;
-		current_cost = this.Cost;
-		while (i < amt){
-			cost_so_far += current_cost;
-			i ++;
-			current_cost = current_cost * this.costMulti;
-			return gold >= cost_so_far;
-		}
-	}
+	
 	
 })
 
@@ -64,9 +54,6 @@ var BuildingAmount = CES.Component.extend({
 	init: function() {
 		this.amount = 0;
 	}
-	
-	
-	
 })
 
 var Farm = new CES.Entity();
@@ -75,13 +62,37 @@ Farm.addComponent(new BaseProduction(1));
 Farm.addComponent(new CostMulti(1.15));
 Farm.addComponent(new BuildingAmount());
 
-
+function buy(build, amt){
+			for (i = 0; i < amt; i++){
+				if (canAfford(build,1) == true) {
+					gold -= build.Cost;
+					build.amount ++;
+					build.Cost = build.Cost * build.costMulti;
+				}
+			document.getElementById(build).innerHTML = build.amount;
+			}
+			
+		
+		
+}
 
 function goldClick(number){  //Base function
 	gold = gold+number;
 	document.getElementById("gold").innerHTML = gold; 
 	};
 
+function canAfford(build,amt){
+		i = 1
+		cost_so_far = 0;
+		current_cost = build.Cost;
+		while (i < amt){
+			cost_so_far += current_cost;
+			i ++;
+			current_cost = current_cost * build.costMulti;
+			return gold >= cost_so_far;
+		}
+	}	
+	
 function manaGain(number) {		//Does the mana stuff
 	if(mana+number >= maxMana){
 		mana = maxMana;
@@ -149,10 +160,12 @@ function timeWarp() {  //spell 1
 	}		
 }	
 
+buy(Farm, 1);
+
 window.setInterval(function tick(number){
 	
 	prodTick(1);
-	
+	document.getElementById("gold").innerHTML = gold;
 	document.getElementById("maxMana").innerHTML = maxMana; //mana stuff
 	manaGain(manaRegen);
 
