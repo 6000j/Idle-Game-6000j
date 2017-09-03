@@ -108,7 +108,7 @@ function buyFarm(){
     if(gold >= farmCost){                                   //checks that the player can afford the farm
         farms = farms + 1;                                   //increases number of farms
     	gold = gold - farmCost;                          //removes the gold spent
-        document.getElementById('farms').innerHTML = farms;  //updates the number of farms for the user
+        document.getElementById('Farm').innerHTML = farms;  //updates the number of farms for the user
         document.getElementById('gold').innerHTML = gold;  //updates the number of gold for the user
     };
     var nextCost = Math.floor(10 * Math.pow(farmCostMulti,farms));       //works out the cost of the next farm
