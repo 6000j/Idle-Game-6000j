@@ -18,8 +18,8 @@ var templeRegen = 0;
 
 var Name = CES.Component.extend({
 	name: 'name',
-	init: function (x){
-		this.name = x.toString;
+	init: function (x) {
+		this.name = x;
 	}
 	
 })
@@ -51,8 +51,8 @@ var BaseProduction = CES.Component.extend({
 
 var BuildingAmount = CES.Component.extend({
 	name: 'amount',
-	init: function() {
-		this.amount = 0;
+	init: function(x) {
+		this.amount = x || 0;
 	}
 })
 
@@ -62,16 +62,22 @@ Farm.addComponent(new Cost(10));
 Farm.addComponent(new BaseProduction(1));
 Farm.addComponent(new CostMulti(1.15));
 Farm.addComponent(new BuildingAmount());
+Farm.init();
+console.log(Farm.name);
+console.log(Farm.getComponent('Cost'));
 
 function buy(build,amt){
-			for (i = 0; i < amt; i++){
+	build.name = build["name"];
+			for (i	 = 0; i < amt; i++){
 				if (canAfford(build,1) == true) {
 					gold -= build.Cost;
 					build.amount ++;
-					build.Cost = build.Cost * build.costMulti;
+					build.Cost = build.getComponent(Cost) * build.costMulti;
 				}
 			
 			}
+			if (build == null) {console.log("build is null")};
+			if (build.name == null) {console.log("build.name is null")}			
 			document.getElementById(build.name).innerHTML = build.amount;
 		
 		
@@ -161,7 +167,7 @@ function timeWarp() {  //spell 1
 	}		
 }	
 
-buy(Farm,1);
+buy("Farm", 1);
 
 window.setInterval(function tick(number){
 	
