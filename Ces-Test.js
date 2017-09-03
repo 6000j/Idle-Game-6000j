@@ -19,7 +19,7 @@ var templeRegen = 0;
 var Name = CES.Component.extend({
 	name: 'name',
 	init: function (x){
-		this.name = x;
+		this.name = x.toString;
 	}
 	
 })
@@ -57,21 +57,22 @@ var BuildingAmount = CES.Component.extend({
 })
 
 var Farm = new CES.Entity();
+Farm.addComponent(new Name("Farm"));
 Farm.addComponent(new Cost(10));
 Farm.addComponent(new BaseProduction(1));
 Farm.addComponent(new CostMulti(1.15));
 Farm.addComponent(new BuildingAmount());
 
-function buy(build, amt){
+function buy(build,amt){
 			for (i = 0; i < amt; i++){
 				if (canAfford(build,1) == true) {
 					gold -= build.Cost;
 					build.amount ++;
 					build.Cost = build.Cost * build.costMulti;
 				}
-			document.getElementById(build).innerHTML = build.amount;
-			}
 			
+			}
+			document.getElementById(build.name).innerHTML = build.amount;
 		
 		
 }
@@ -160,7 +161,7 @@ function timeWarp() {  //spell 1
 	}		
 }	
 
-buy(Farm, 1);
+buy(Farm,1);
 
 window.setInterval(function tick(number){
 	
