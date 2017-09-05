@@ -1,84 +1,59 @@
 var gold = 0;
-
 var maxMana = 1000;
 var mana = 1000;
 var manaRegen = 5;
 
-var farms = 0;
-var farmCostMulti = 1.15;
-var farmBaseProd = 1;
-var farmProdMulti = 1;
-var inns = 0;
-var innCostMulti = 1.15;
-var innBaseProd = 5;
-var innProdMulti = 1;
-var temples = 0;
-var templeCostMulti = 1.15;
-var templeRegen = 0;
+var farm = {
+	name: "Farm",
+	amount: 0,
+	baseCost: 10,
+	cost: 10,
+	costMulti: 1.15,
+	baseProd: 1,
+	prodMulti: 1,
+	type: 'building',
+};
+var inn = {
+	name: "Inn",
+	amount: 0,
+	baseCost: 100,
+	cost: 100,
+	costMulti: 1.15,
+	baseProd: 7,
+	prodMulti: 1,
+	type: 'building',
+};
 
-var Name = CES.Component.extend({
-	name: 'name',
-	init: function (x) {
-		this.name = x;
-	}
-	
-})
-
-var CostMulti = CES.Component.extend({
-	name: 'costMulti',
-	init: function (x) {
-		this.costMulti = x;
-	}
-})
-
-var Cost = CES.Component.extend({
-	name: 'Cost',
-	init: function (baseCost){
-		this.Cost = this.baseCost = baseCost;
-	},
-	
-	
-})
-
-var BaseProduction = CES.Component.extend({
-	name: 'baseProduction',
-	init: function (x) {
-		this.baseProduction = x;
-	}
-})
+var temple = {
+	name: "Temple",
+	amount: 0,
+	baseCost: 1000,
+	cost: 1000,
+	costMulti: 1.20,
+	baseRegen: 0.5,
+	regenMulti: 1,
+	type: 'building',
+};
 
 
 
-var BuildingAmount = CES.Component.extend({
-	name: 'amount',
-	init: function(x) {
-		this.amount = x || 0;
-	}
-})
-
-var Farm = new CES.Entity();
-Farm.addComponent(new Name("Farm"));
-Farm.addComponent(new Cost(10));
-Farm.addComponent(new BaseProduction(1));
-Farm.addComponent(new CostMulti(1.15));
-Farm.addComponent(new BuildingAmount());
-Farm.init();
-console.log(Farm.name);
-console.log(Farm.getComponent('Cost'));
 
 function buy(build,amt){
-	build.name = build["name"];
+	
 			for (i	 = 0; i < amt; i++){
 				if (canAfford(build,1) == true) {
-					gold -= build.Cost;
+					gold -= build.cost;
 					build.amount ++;
-					build.Cost = build.getComponent(Cost) * build.costMulti;
+					build.cost = build.cost * build.costMulti;
 				}
 			
 			}
 			if (build == null) {console.log("build is null")};
 			if (build.name == null) {console.log("build.name is null")}			
 			document.getElementById(build.name).innerHTML = build.amount;
+			document.getElementById(gold).innerHTML = gold;
+			document.getElementById(build.name + 'Cost').innerHTML = build.cost;
+			document.getElementById(build.name + 'Prod').innerHTML = build.amount*build.baseProd*build.prodMulti;
 		
 		
 }
@@ -89,9 +64,9 @@ function goldClick(number){  //Base function
 	};
 
 function canAfford(build,amt){
-		i = 1
-		cost_so_far = 0;
-		current_cost = build.Cost;
+		var i = 1;
+		var cost_so_far = 0;
+		var current_cost = build.Cost;
 		while (i < amt){
 			cost_so_far += current_cost;
 			i ++;
@@ -110,52 +85,19 @@ function manaGain(number) {		//Does the mana stuff
 	document.getElementById("currentMana").innerHTML = mana;
 }	
 	
-function buyFarm(){
-    var farmCost = Math.floor(10 * Math.pow(farmCostMulti,farms));     //works out the cost of this farm
-    if(gold >= farmCost){                                   //checks that the player can afford the farm
-        farms = farms + 1;                                   //increases number of farms
-    	gold = gold - farmCost;                          //removes the gold spent
-        document.getElementById('Farm').innerHTML = farms;  //updates the number of farms for the user
-        document.getElementById('gold').innerHTML = gold;  //updates the number of gold for the user
-    };
-    var nextCost = Math.floor(10 * Math.pow(farmCostMulti,farms));       //works out the cost of the next farm
-    document.getElementById('farmCost').innerHTML = nextCost;  //updates the farm cost for the user
-};
 
-function buyInn(){
-    var innCost = Math.floor(100 * Math.pow(innCostMulti,inns));     //works out the cost of this farm
-    if(gold >= innCost){                                   //checks that the player can afford the farm
-        inns = inns + 1;                                   //increases number of farms
-    	gold = gold - innCost;                          //removes the gold spent
-        document.getElementById('inns').innerHTML = inns;  //updates the number of farms for the user
-        document.getElementById('gold').innerHTML = gold;  //updates the number of gold for the user
-    };
-    var nextCost = Math.floor(100 * Math.pow(innCostMulti,inns));       //works out the cost of the next farm
-    document.getElementById('innCost').innerHTML = nextCost;  //updates the farm cost for the user
-};
-
-function buyTemple(){
-    var templeCost = Math.floor(100 * Math.pow(templeCostMulti,temples));     
-    if(gold >= templeCost){                                   
-        temples = temples + 1;                                   
-    	gold = gold - templeCost;                          
-        document.getElementById('temples').innerHTML = inns;  
-        document.getElementById('gold').innerHTML = gold;  
-    };
-    var nextCost = Math.floor(100 * Math.pow(innCostMulti,inns));       
-    document.getElementById('innCost').innerHTML = nextCost;  	
-};
 
 
 
 function prodTick(number){
 		for (i = 0; i < number; i++){
-			var farmProd = farms*farmBaseProd*farmProdMulti;			//building production and the like
-			document.getElementById('farmProd').innerHTML = farmProd;
-			goldClick(farmProd);
-			var innProd = inns*innBaseProd*innProdMulti;
-			document.getElementById('innProd').innerHTML = innProd;
-			goldClick(innProd);
+			
+			farm.prod = farm.amount*farm.baseProd*farm.prodMulti;			//building production and the like
+			document.getElementById('FarmProd').innerHTML = farm.prod;
+			goldClick(farm.prod);
+			inn.prod = inn.amount*inn.baseProd*inn.prodMulti;
+			document.getElementById('InnProd').innerHTML = inn.prod;
+			goldClick(inn.prod);
 			}
 		}
 		
@@ -167,7 +109,7 @@ function timeWarp() {  //spell 1
 	}		
 }	
 
-buy("Farm", 1);
+
 
 window.setInterval(function tick(number){
 	

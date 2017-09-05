@@ -16,6 +16,8 @@ var temples = 0;
 var templeCostMulti = 1.15;
 var templeRegen = 0;
 
+
+
 function goldClick(number){  //Base function
 	gold = gold+number;
 	document.getElementById("gold").innerHTML = gold; 

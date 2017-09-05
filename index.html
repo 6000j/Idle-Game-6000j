@@ -12,31 +12,31 @@
 <br />
 <div class="BuildList" style="float: right;">
 	<article class="building">
-		<button onClick="buyFarm()"> Farm </button>
+		<button onClick="buy(farm, 1)"> Farm </button>
 		<br />
 		Farms: <span id="Farm">0</span><br />
-		Cost: <span id="farmCost">10</span><br />
-		Income: <span id="farmProd"></span>
+		Cost: <span id="FarmCost">10</span><br />
+		Income: <span id="FarmProd">0</span>
 	</article>
 	
 	<br />
 
 	<article class="building">
-		<button onClick="buyInn()"> Inn </button>
+		<button onClick="buy(inn, 1)"> Inn </button>
 		<br />
-		Inns: <span id="inns">0</span><br />
-		Cost: <span id="innCost">100</span><br />
-		Income: <span id="innProd"></span>
+		Inns: <span id="Inn">0</span><br />
+		Cost: <span id="InnCost">100</span><br />
+		Income: <span id="InnProd">0</span>
 	</article>
 	
 	<br />
 	
 	<article class="building">
-		<button onClick="buyTemple()"> Temple </button>
+		<button onClick="buy(temple, 1)"> Temple </button>
 		<br />
-		Temples: <span id="temples">0</span><br />
-		Cost: <span id="templeCost">100</span><br />
-		Mana Regen from Temples: <span id="templeRegen"></span>
+		Temples: <span id="Temple">0</span><br />
+		Cost: <span id="TempleCost">100</span><br />
+		Mana Regen from Temples: <span id="TempleRegen">0</span>
 	</article>
 </div>
 Gold: <span id="gold"></span>
@@ -47,7 +47,7 @@ Mana: <span id="currentMana"></span> / <span id="maxMana"></span>
 
 <p>Spells</p>
 
-<button onClick="timeWarp()"> Time Warp </br>
+<button onClick="timeWarp()"> Time Warp <br />
 	200 mana </button>
 
 
