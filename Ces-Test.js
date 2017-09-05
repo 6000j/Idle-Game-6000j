@@ -51,7 +51,7 @@ function buy(build,amt){
 			if (build == null) {console.log("build is null")};
 			if (build.name == null) {console.log("build.name is null")}			
 			document.getElementById(build.name).innerHTML = build.amount;
-			document.getElementById(gold).innerHTML = gold;
+			document.getElementById('gold').innerHTML = gold;
 			document.getElementById(build.name + 'Cost').innerHTML = build.cost;
 			document.getElementById(build.name + 'Prod').innerHTML = build.amount*build.baseProd*build.prodMulti;
 		
@@ -116,6 +116,7 @@ window.setInterval(function tick(number){
 	prodTick(1);
 	document.getElementById("gold").innerHTML = gold;
 	document.getElementById("maxMana").innerHTML = maxMana; //mana stuff
+	manaRegen = 5 + (temple.amount*temple.baseRegen*temple.regenMulti);
 	manaGain(manaRegen);
 
 }, 1000);
