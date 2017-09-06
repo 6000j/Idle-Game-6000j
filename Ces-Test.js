@@ -47,13 +47,13 @@ var buildings = [
 // loadout system	
 function Html(build) {
 	if ('baseProd' in build) { 
-	build.html = `<button onClick="buy(build, 1)">`+build.name+`</button>
+	build.html = `<button onClick="buy(`+build.name.toLowerCase()+`, 1)">`+build.name+`</button>
 		<br />
 		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
 		Cost: <span id="`+build.name+'Cost'+`"></span><br />
 		Income: <span id="`+build.name+'Prod'+`">0</span>
 	`;	}else if ('baseRegen' in build) {
-	build.html= `<button onClick="buy(build, 1)">`+build.name+`</button>
+	build.html= `<button onClick="buy(`+build.name.toLowerCase+`, 1)">`+build.name+`</button>
 		<br />
 		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
 		Cost: <span id="`+build.name+'Cost'+`"></span><br />
