@@ -39,9 +39,46 @@ var buildings = [
 	farm,
 	inn,
 	temple,
-]
+];
+
+	
 
 
+// loadout system	
+function Html(build) {
+	if ('baseProd' in build) { 
+	build.html = `<button onClick="buy(build, 1)">`+build.name+`</button>
+		<br />
+		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
+		Cost: <span id="`+build.name+'Cost'+`"></span><br />
+		Income: <span id="`+build.name+'Prod'+`">0</span>
+	`;	}else if ('baseRegen' in build) {
+	build.html= `<button onClick="buy(build, 1)">`+build.name+`</button>
+		<br />
+		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
+		Cost: <span id="`+build.name+'Cost'+`"></span><br />
+		Bonus Regen: <span id="`+build.name+'Regen'+`">0</span>
+	`;
+	}
+
+}
+
+function setHtml() {
+	buildings.forEach(Html);
+}
+
+setHtml();
+
+document.getElementById("slot1").innerHTML = farm.html;
+document.getElementById("slot2").innerHTML = inn.html;
+document.getElementById("slot3").innerHTML = temple.html;
+
+function goldClick(number){  //Base function
+	gold = gold+number;
+	document.getElementById("gold").innerHTML = gold; 
+	};
+
+//Buy function
 function buy(build,amt){
 	
 			for (i	 = 0; i < amt; i++){
@@ -67,11 +104,6 @@ function buy(build,amt){
 		
 }
 
-function goldClick(number){  //Base function
-	gold = gold+number;
-	document.getElementById("gold").innerHTML = gold; 
-	};
-
 function canAfford(build,amt){
 		var i = 0;
 		var cost_so_far = 0;
@@ -83,8 +115,9 @@ function canAfford(build,amt){
 			return gold >= Math.round(cost_so_far);
 		}
 	}	
-	
-function manaGain(number) {		//Does the mana stuff
+
+//mana gain function
+function manaGain(number) {		
 	if(mana+number >= maxMana){
 		mana = maxMana;
 	}
@@ -93,12 +126,14 @@ function manaGain(number) {		//Does the mana stuff
 	}
 	document.getElementById("currentMana").innerHTML = mana;
 }	
-	
+
+
+//Tick Functions
 function specificProd(build) {
 	if ('baseProd' in build){
 		build.prod = build.amount*build.baseProd*build.prodMulti;
 		document.getElementById(build.name + 'Prod').innerHTML = build.prod;
-		goldClick(build.prod)
+		goldClick(build.prod);
 	}
 }
 
@@ -112,27 +147,17 @@ function specificRegen(build) {
 
 function prodTick(number){
 	for (i = 0; i < number; i++){
-		buildings.forEach(specificProd) 
+		buildings.forEach(specificProd); 
 	}
 }
 
 function manaTick(number){
 	for (i = 0; i < number; i++){
-		buildings.forEach(specificRegen) 
+		buildings.forEach(specificRegen); 
 	}
 }
-		
-//Spells
-function timeWarp() {  //spell 1
-	if(mana >= 200) {
-		prodTick(30);
-		mana = mana - 200;
-	}		
-}	
 
-
-
-window.setInterval(function tick(number){
+window.setInterval(function tick(number){ //this calculates everything, using all the other functions
 	
 	prodTick(1);
 	document.getElementById("gold").innerHTML = gold;
@@ -142,3 +167,37 @@ window.setInterval(function tick(number){
 	document.getElementById("manaRegen").innerHTML = manaRegen;
 	manaGain(manaRegen);
 }, 1000);
+
+
+
+
+//Spells
+function timeWarp() {  //spell 1
+	if(mana >= 200) {
+		prodTick(30);
+		mana = mana - 200;
+	}		
+}	
+
+
+//Startup Stuff
+function costSet(build) {
+	document.getElementById(build.name + 'Cost').innerHTML = Math.round(build.cost);
+}
+
+function setCosts() {
+	buildings.forEach(costSet);
+}
+
+function amtSet(build) {
+	document.getElementById(build.name).innerHTML = Math.round(build.amount);
+}
+
+function setAmt() {
+	buildings.forEach(amtSet);
+}
+
+
+document.getElementById("slot1").innerHTML = farm.html;
+document.getElementById("slot2").innerHTML = inn.html;
+document.getElementById("slot3").innerHTML = temple.html;

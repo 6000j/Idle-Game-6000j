@@ -3,40 +3,28 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="interface.css" />
-<script type="text/javascript" src="./ces-browser.min.js"></script>
-<script type="text/javascript" src="Ces-Test.js"></script>
-
 </head>
 <body>
 <button onClick="goldClick(1)"> Pls Click </button>
 <br />
 <div class="BuildList" style="float: right;">
 	<article class="building">
-		<button onClick="buy(farm, 1)"> Farm </button>
-		<br />
-		Farms: <span id="Farm">0</span><br />
-		Cost: <span id="FarmCost">10</span><br />
-		Income: <span id="FarmProd">0</span>
+		<span id="slot1">
+		</span>
 	</article>
 	
 	<br />
 
 	<article class="building">
-		<button onClick="buy(inn, 1)"> Inn </button>
-		<br />
-		Inns: <span id="Inn">0</span><br />
-		Cost: <span id="InnCost">100</span><br />
-		Income: <span id="InnProd">0</span>
+		<span id="slot2">
+		</span>
 	</article>
 	
 	<br />
 	
 	<article class="building">
-		<button onClick="buy(temple, 1)"> Temple </button>
-		<br />
-		Temples: <span id="Temple">0</span><br />
-		Cost: <span id="TempleCost">1000</span><br />
-		Mana Regen from Temples: <span id="TempleRegen">0</span>
+		<span id="slot3">
+		</span>
 	</article>
 </div>
 Gold: <span id="gold"></span>
@@ -51,7 +39,15 @@ Mana Regen: <span id="manaRegen"></span>/S
 <button onClick="timeWarp()"> Time Warp <br />
 	200 mana </button>
 
+<script type="text/javascript" src="./ces-browser.min.js"></script>
+<script type="text/javascript" src="Ces-Test.js"></script>
+<script> 
 
+</script>
+<script>
+	setCosts();
+	setAmt();
+</script>		
 </body>
 
 
