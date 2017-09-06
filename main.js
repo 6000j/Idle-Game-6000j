@@ -12,6 +12,11 @@ var inns = 0;
 var innCostMulti = 1.15;
 var innBaseProd = 5;
 var innProdMulti = 1;
+var temples = 0;
+var templeCostMulti = 1.15;
+var templeRegen = 0;
+
+
 
 function goldClick(number){  //Base function
 	gold = gold+number;
@@ -52,6 +57,18 @@ function buyInn(){
     document.getElementById('innCost').innerHTML = nextCost;  //updates the farm cost for the user
 };
 
+function buyTemple(){
+    var templeCost = Math.floor(100 * Math.pow(templeCostMulti,temples));     
+    if(gold >= templeCost){                                   
+        temples = temples + 1;                                   
+    	gold = gold - templeCost;                          
+        document.getElementById('temples').innerHTML = inns;  
+        document.getElementById('gold').innerHTML = gold;  
+    };
+    var nextCost = Math.floor(100 * Math.pow(innCostMulti,inns));       
+    document.getElementById('innCost').innerHTML = nextCost;  	
+};
+
 function prodTick(number){
 		for (i = 0; i < number; i++){
 			var farmProd = farms*farmBaseProd*farmProdMulti;			//building production and the like
@@ -68,8 +85,9 @@ function timeWarp() {  //spell 1
 	if(mana >= 200) {
 		prodTick(30);
 		mana = mana - 200;
-	}
-}
+	}		
+}	
+
 window.setInterval(function tick(number){
 	
 	prodTick(1);
