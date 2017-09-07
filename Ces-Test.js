@@ -35,43 +35,40 @@ var temple = {
 	type: 'building',
 };
 
+var library = {
+	name: "Library",
+	amount: 0,
+	baseCost: 500,
+	cost: 500,
+	costMulti: 1.15,
+	baseRegen: 0.05,
+	regenMulti: 1,
+	baseProd: 5,
+	prodMulti: 1,
+	type: 'building',
+};
+
 var buildings = [
 	farm,
 	inn,
 	temple,
+	library,
 ];
+
+var loadout = [
+	farm,
+	inn,
+	temple,
+	library,
+]
 
 	
 
 
 // loadout system	
-function Html(build) {
-	if ('baseProd' in build) { 
-	build.html = `<button onClick="buy(`+build.name.toLowerCase()+`, 1)">`+build.name+`</button>
-		<br />
-		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
-		Cost: <span id="`+build.name+'Cost'+`"></span><br />
-		Income: <span id="`+build.name+'Prod'+`">0</span>
-	`;	}else if ('baseRegen' in build) {
-	build.html= `<button onClick="buy(`+build.name.toLowerCase+`, 1)">`+build.name+`</button>
-		<br />
-		`+build.name+'s'+`: <span id="`+build.name+`"></span><br />
-		Cost: <span id="`+build.name+'Cost'+`"></span><br />
-		Bonus Regen: <span id="`+build.name+'Regen'+`">0</span>
-	`;
-	}
 
-}
 
-function setHtml() {
-	buildings.forEach(Html);
-}
 
-setHtml();
-
-document.getElementById("slot1").innerHTML = farm.html;
-document.getElementById("slot2").innerHTML = inn.html;
-document.getElementById("slot3").innerHTML = temple.html;
 
 function goldClick(number){  //Base function
 	gold = gold+number;
@@ -98,7 +95,7 @@ function buy(build,amt){
 				document.getElementById(build.name + 'Prod').innerHTML = build.amount*build.baseProd*build.prodMulti;
 			}
 			if ('baseRegen' in build){
-				document.getElementById(build.name + 'Regen').innerHTML = build.amount*build.baseRegen*build.regenMulti;
+				document.getElementById(build.name + 'Regen').innerHTML = Math.round(build.amount*build.baseRegen*build.regenMulti*100)/100;
 			}
 		
 		
@@ -124,7 +121,7 @@ function manaGain(number) {
 	else{
 		mana = mana + number;
 	}
-	document.getElementById("currentMana").innerHTML = mana;
+	document.getElementById("currentMana").innerHTML = Math.round(mana * 100)/100;
 }	
 
 
@@ -140,7 +137,7 @@ function specificProd(build) {
 function specificRegen(build) {
 	if ('baseRegen' in build){
 		build.regen = build.amount*build.baseRegen*build.regenMulti;
-		document.getElementById(build.name + 'Regen').innerHTML = build.regen;
+		document.getElementById(build.name + 'Regen').innerHTML = Math.round(build.regen*100)/100;
 		manaRegen += build.regen;
 	}
 }
@@ -164,11 +161,9 @@ window.setInterval(function tick(number){ //this calculates everything, using al
 	document.getElementById("maxMana").innerHTML = maxMana; //mana stuff
 	manaRegen = 5; //reseting regen so I can then calc it
 	manaTick(1);
-	document.getElementById("manaRegen").innerHTML = manaRegen;
+	document.getElementById("manaRegen").innerHTML = Math.round(manaRegen*100)/100;
 	manaGain(manaRegen);
 }, 1000);
-
-
 
 
 //Spells
@@ -198,6 +193,57 @@ function setAmt() {
 }
 
 
-document.getElementById("slot1").innerHTML = farm.html;
-document.getElementById("slot2").innerHTML = inn.html;
-document.getElementById("slot3").innerHTML = temple.html;
+//defining the html blocks for each building
+
+farm.html = `<button onClick="buy(farm, 1)">Farm</button>
+		<br />
+		Farms: <span id="Farm"></span><br />
+		Cost: <span id="FarmCost"></span><br />
+		Income: <span id="FarmProd">0</span>`;
+inn.html = `<button onClick="buy(inn, 1)">Inn</button>
+		<br />
+		Inns: <span id="Inn"></span><br />
+		Cost: <span id="InnCost"></span><br />
+		Income: <span id="InnProd">0</span>`;
+temple.html = `<button onClick="buy(temple, 1)">Temple</button>
+		<br />
+		Temples: <span id="Temple"></span><br />
+		Cost: <span id="TempleCost"></span><br />
+		Bonus Regen: <span id="TempleRegen">0</span>`;
+library.html = `<button onClick="buy(library, 1)">Library</button>
+		<br />
+		Libraries: <span id="Library"></span><br />
+		Cost: <span id="LibraryCost"></span><br />
+		Income: <span id="LibraryProd">0</span><br />
+		Bonus Regen: <span id="LibraryRegen">0</span>`;
+
+document.getElementById("slot1").innerHTML = loadout[0].html;
+document.getElementById("slot2").innerHTML = loadout[1].html;
+document.getElementById("slot3").innerHTML = loadout[2].html;
+document.getElementById("slot4").innerHTML = loadout[3].html;
+
+function save() {
+	var save = {
+		farm: farm,
+		inn: inn,
+		gold: gold,
+		mana: mana,
+		temple: temple,
+		library: library,
+		loadout : loadout,
+		buildings: buildings,
+	}
+	localStorage.setItem("save",JSON.stringify(save));
+}
+
+function load(){
+	var savegame = JSON.parse(localStorage.getItem("save"));
+	if (typeof savegame.gold !== "undefined") gold = savegame.gold;
+	if (typeof savegame.inn !== "undefined") inn = savegame.inn;
+	if (typeof savegame.farm !== "undefined") farm = savegame.farm;
+	if (typeof savegame.temple !== "undefined") temple = savegame.temple;
+	if (typeof savegame.library !== "undefined") library = savegame.library;
+	if (typeof savegame.mana !== "undefined") mana = savegame.mana;
+	if (typeof savegame.loadout !== "undefined") loadout = savegame.loadout;
+	if (typeof savegame.buildings !== "undefined") buildings = savegame.buildings;	
+}

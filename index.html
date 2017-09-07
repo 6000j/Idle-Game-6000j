@@ -3,6 +3,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="interface.css" />
+<script src="./lib/w3.js"></script>
+<script src="./lib/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <button onClick="goldClick(1)"> Pls Click </button>
@@ -26,6 +28,13 @@
 		<span id="slot3">
 		</span>
 	</article>
+	
+	<br />
+	
+	<article class="building">
+		<span id="slot4">
+		</span>
+	</article>
 </div>
 Gold: <span id="gold"></span>
 <br />
@@ -38,7 +47,14 @@ Mana Regen: <span id="manaRegen"></span>/S
 
 <button onClick="timeWarp()"> Time Warp <br />
 	200 mana </button>
-
+<br />
+<br />
+<br />
+<br />
+	
+<button onClick="save()"> Save </button>
+<br />
+<button onClick="load()"> Load </button>
 <script type="text/javascript" src="./ces-browser.min.js"></script>
 <script type="text/javascript" src="Ces-Test.js"></script>
 <script> 
